@@ -3,7 +3,7 @@ import axios from "axios";
 const API_BASE_URL =
   import.meta.env.MODE === "development"
     ? "/api"
-    : "https://weather-lwgx.vercel.app"; // replace with your backend URL
+    : "https://weather-lwgx.vercel.app/api"; // replace with your backend URL
 
 const api = axios.create({
   baseURL: API_BASE_URL,
