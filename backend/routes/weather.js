@@ -5,7 +5,7 @@ const Weather = require('../models/Weather');
 const router = express.Router();
 
 // OpenWeatherMap API configuration
-const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY || 'your_api_key_here';
+const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
 const OPENWEATHER_BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
 
 // Search weather and store in database
