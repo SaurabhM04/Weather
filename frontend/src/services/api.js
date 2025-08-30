@@ -1,53 +1,52 @@
-import axios from 'axios'
+import axios from "axios";
 
-const API_BASE_URL = '/api'
+const API_BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "/api"
+    : "https://weather-lwgx.vercel.app/api"; // replace with your backend URL
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
-})
+});
 
 // Request interceptor for error handling
 api.interceptors.request.use(
-  (config) => {
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+  (config) => config,
+  (error) => Promise.reject(error)
+);
 
 // Response interceptor for error handling
 api.interceptors.response.use(
-  (response) => {
-    return response
-  },
+  (response) => response,
   (error) => {
-    if (error.code === 'ECONNABORTED') {
-      error.message = 'Request timeout. Please try again.'
+    if (error.code === "ECONNABORTED") {
+      error.message = "Request timeout. Please try again.";
     } else if (!error.response) {
-      error.message = 'Network error. Please check your connection.'
+      error.message = "Network error. Please check your connection.";
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
 export const searchWeather = async (city) => {
   try {
-    const response = await api.post('/weather/search', { city })
-    return response.data
+    const response = await api.post("/weather/search", { city });
+    return response.data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const getWeatherHistory = async (page = 1, limit = 10) => {
   try {
-    const response = await api.get(`/weather/history?page=${page}&limit=${limit}`)
-    return response
+    const response = await api.get(
+      `/weather/history?page=${page}&limit=${limit}`
+    );
+    return response;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-export default api
+export default api;
